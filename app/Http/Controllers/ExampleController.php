@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class ExampleController extends Controller
 {
     /**
@@ -14,5 +16,9 @@ class ExampleController extends Controller
         //
     }
 
-    //
+    public function tester(Request $request)
+    {
+        $data = ['code' => '200', 'message' => 'just testing'];
+        return response()->json($data);
+    }
 }

@@ -16,3 +16,10 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->post('/register', 'UserController@register');
+$router->post('/login', 'UserController@login');
+
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    $router->get('/example', 'ExampleController@tester');
+});
