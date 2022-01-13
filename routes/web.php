@@ -19,7 +19,12 @@ $router->get('/', function () use ($router) {
 
 $router->post('/register', 'UserController@register');
 $router->post('/login', 'UserController@login');
+$router->get('/photos', 'PhotoController@showAll');
+$router->get('/photos/{id}', 'PhotoController@getDetails');
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/example', 'ExampleController@tester');
+    $router->post('/photos', 'PhotoController@postPhoto');
+    $router->put('/photos/{id}', 'PhotoController@updateDetails');
+    $router->delete('/photos/{id}', 'PhotoController@Delete');
 });
