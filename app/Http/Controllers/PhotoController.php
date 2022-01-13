@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Photo;
 use App\Models\User;
+use App\Models\LikedPhoto;
 
 class PhotoController extends Controller
 {
@@ -53,6 +54,8 @@ class PhotoController extends Controller
     {
         $photos = Photo::find($id);
         $message = empty($photos) ? 'Data not Found' : 'Found data';
+        $total_liked = LikedPhoto::where('photo_id', $id)->count();
+        $photos->total_liked = $total_liked;
         $data = [
             'message' => $message,
             'data' => $photos
@@ -104,7 +107,12 @@ class PhotoController extends Controller
             ]);
         }
 
+        $liked_photo = LikedPhoto::where('photo_id', $photos->id);
+        if (!empty($liked_photo->get())) {
+            $liked_photo->delete();
+        }
         $photos->delete();
+
 
         return response()->json([
             'message' => 'success deleted data',

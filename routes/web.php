@@ -27,4 +27,6 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/photos', 'PhotoController@postPhoto');
     $router->put('/photos/{id}', 'PhotoController@updateDetails');
     $router->delete('/photos/{id}', 'PhotoController@Delete');
+    $router->post('/photos/{id}/like', 'LikedPhotoController@LikedPhoto');
+    $router->post('/photos/{id}/unlike', 'LikedPhotoController@UnlikedPhoto');
 });
